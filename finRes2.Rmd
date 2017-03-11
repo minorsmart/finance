@@ -139,7 +139,6 @@ finres.uncertain
 
 investment <- 3000000
 netpresval <- -investment + sum(finres.uncertain$nresult.pres)
-
 ```
 
 The resulting Net Present Value equals: **`r round(netpresval)`**
