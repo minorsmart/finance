@@ -113,3 +113,26 @@ ggplot(finres.uncertain, aes(x = t, y = nresult)) +
 
 ```
 
+Present value
+```{r}
+# Function for calculating present values
+presval <- function(futurevalue, discountrate, nperiods) {
+  
+  presentvalue <- futurevalue / (1 + discountrate)^nperiods
+  
+}
+
+# Calculate present values of net results and add to data frame
+discrate <- 0.05
+finres.uncertain <- mutate(finres.uncertain,
+                 nresult.pres = presval(nresult, discrate, t)
+                 )
+
+finres.uncertain
+
+investment <- 3000000
+netpresval <- -investment + sum(finres.uncertain$nresult.pres)
+
+```
+
+The resulting Net Present Value equals: **`r round(netpresval)`**
