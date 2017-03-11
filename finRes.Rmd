@@ -19,6 +19,7 @@ taxes <- bresult * 0.25
 nresult <- bresult - taxes
 
 finres <- data.frame(t, sales, varcosts, fixcosts, bresult, taxes, nresult)
+finres
 ```
 
 10 year projection with growth rate
@@ -38,8 +39,14 @@ inflation <- 0.012
 for (s in c(1:10)) {
   
   t <- c(t, s)
-  sales <- c(sales, growthcalc(sales[s], growth))
-  fixcosts <- c(fixcosts, growthcalc(fixcosts[s], inflation))
+  sales <- c(sales,
+             growthcalc(sales[s],
+                        growth)
+             )
+  fixcosts <- c(fixcosts,
+                growthcalc(fixcosts[s],
+                           inflation)
+                )
   
 }
 
@@ -70,14 +77,22 @@ sales <- 1000000
 fixcosts <- 50000
 
 # Calculate a growing independend series and combine them in data frame with uncertainty
-stdevg <- 0.12
-stdevi <- 0.003
+stdevg <- 0.20
+stdevi <- 0.005
 
 for (s in c(1:10)) {
   
   t <- c(t, s)
-  sales <- c(sales, growthcalc(sales[s], rnorm(1, mean = growth, sd = stdevg)))
-  fixcosts <- c(fixcosts, growthcalc(fixcosts[s], rnorm(1, mean = inflation, sd = stdevg)))
+  sales <- c(sales,
+             growthcalc(sales[s],
+                        rnorm(1, mean = growth, sd = stdevg)
+                        )
+             )
+  fixcosts <- c(fixcosts,
+                growthcalc(fixcosts[s],
+                           rnorm(1, mean = inflation, sd = stdevi)
+                           )
+                )
   
 }
 
