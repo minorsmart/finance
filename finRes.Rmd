@@ -3,7 +3,7 @@ title: "Finance with R"
 output: html_notebook
 ---
 
-One year financial model: sales - variable costs - fixed costs - taxes = net result
+One year financial model: *sales - variable costs - fixed costs - taxes = net result*
 
 ```{r}
 # Turn off scientific notation
