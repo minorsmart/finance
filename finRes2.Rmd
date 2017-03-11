@@ -1,6 +1,5 @@
 ---
 title: "Finance with R"
-author: "Witek ten Hove"
 output: html_notebook
 ---
 
@@ -70,6 +69,7 @@ library(ggplot2)
 ggplot(finres, aes(x = t, y = nresult)) +
   geom_col(fill = rainbow(max(t)+1)) +
   theme(legend.position="none")
+  
 ```
 
 <hr>
@@ -145,6 +145,47 @@ netpresval <- -investment + sum(finres.uncertain$nresult.pres)
 The resulting Net Present Value equals: **`r round(netpresval)`**
 
 <hr>
-### Question
-*Go back to part 2 and build a model that assumes a growth rate of 15% p.a. for the first eight years and zero for the remaining two years.*<br>
-*HINT: make two adjustments.*
+5. A 10 year projection with a set of growth rates
+
+```{r, message=FALSE, warning=FALSE}
+# Define starting values
+t <- 0
+sales <- 1000000
+fixcosts <- 50000
+# Define a function for calculating growing end values
+
+# Calculate a growing independent series and combine them in data frame
+growth <- c(rep(0.15, 8), rep(0, 2))
+inflation <- 0.012
+
+for (s in c(1:10)) {
+  
+  t <- c(t, s)
+  sales <- c(sales,
+             growthcalc(sales[s],
+                        growth[s])
+             )
+  fixcosts <- c(fixcosts,
+                growthcalc(fixcosts[s],
+                           inflation)
+                )
+  
+}
+
+finresa <- data.frame(t, sales, fixcosts)
+
+# Calculate dependent series
+library(dplyr)
+finresa <- mutate(finresa,
+                 varcosts = sales * 0.7,
+                 bresult = sales - varcosts - fixcosts,
+                 taxes = bresult * 0.25,
+                 nresult = bresult - taxes
+                 )
+
+# Plot series
+library(ggplot2)
+ggplot(finresa, aes(x = t, y = nresult)) +
+  geom_col(fill = topo.colors(max(t)+1)) +
+  theme(legend.position="none")
+```
