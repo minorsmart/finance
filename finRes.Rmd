@@ -23,7 +23,7 @@ finres
 ```
 
 10 year projection with growth rate
-```{r}
+```{r, message=FALSE, warning=FALSE}
 # Define a function for calculating growing end values
 growthcalc <- function(startvalue, rate) {
   
