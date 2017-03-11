@@ -1,0 +1,100 @@
+---
+title: "Finance with R"
+output: html_notebook
+---
+
+One year financial model: sales - variable costs - fixed costs - taxes = net result
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+
+# Define starting values
+t <- 0
+sales <- 1000000
+varcosts <- sales * 0.7
+fixcosts <- 50000
+bresult <- sales - varcosts - fixcosts
+taxes <- bresult * 0.25
+nresult <- bresult - taxes
+
+finres <- data.frame(t, sales, varcosts, fixcosts, bresult, taxes, nresult)
+```
+
+10 year projection with growth rate
+```{r}
+# Define a function for calculating growing end values
+growthcalc <- function(startvalue, rate) {
+  
+  endvalue <- startvalue * (1 + rate)
+  return(endvalue)
+  
+}
+
+# Calculate a growing independend series and combine them in data frame
+growth <- 0.15
+inflation <- 0.012
+
+for (s in c(1:10)) {
+  
+  t <- c(t, s)
+  sales <- c(sales, growthcalc(sales[s], growth))
+  fixcosts <- c(fixcosts, growthcalc(fixcosts[s], inflation))
+  
+}
+
+finres <- data.frame(t, sales, fixcosts)
+
+# Calculate dependend series
+library(dplyr)
+finres <- mutate(finres,
+                 varcosts = sales * 0.7,
+                 bresult = sales - varcosts - fixcosts,
+                 taxes = bresult * 0.25,
+                 nresult = bresult - taxes
+                 )
+
+# Plot series
+library(ggplot2)
+ggplot(finres, aes(x = t, y = nresult)) +
+  geom_col(fill = rainbow(max(t)+1)) +
+  theme(legend.position="none")
+  
+```
+
+Add risk
+```{r}
+# Define starting values
+t <- 0
+sales <- 1000000
+fixcosts <- 50000
+
+# Calculate a growing independend series and combine them in data frame with uncertainty
+stdevg <- 0.12
+stdevi <- 0.003
+
+for (s in c(1:10)) {
+  
+  t <- c(t, s)
+  sales <- c(sales, growthcalc(sales[s], rnorm(1, mean = growth, sd = stdevg)))
+  fixcosts <- c(fixcosts, growthcalc(fixcosts[s], rnorm(1, mean = inflation, sd = stdevg)))
+  
+}
+
+finres.uncertain <- data.frame(t, sales, fixcosts)
+
+# Calculate dependend series
+finres.uncertain <- mutate(finres.uncertain,
+                 varcosts = sales * 0.7,
+                 bresult = sales - varcosts - fixcosts,
+                 taxes = bresult * 0.25,
+                 nresult = bresult - taxes
+                 )
+
+# Plot series
+ggplot(finres.uncertain, aes(x = t, y = nresult)) +
+  geom_col(fill = heat.colors(max(t)+1)) +
+  theme(legend.position="none")
+
+```
+
