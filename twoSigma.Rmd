@@ -3,13 +3,16 @@ title: "Two Sigma"
 output: html_notebook
 ---
 
+<hr>
 #### This data is taken from the [Two Sigma Kaggle](https://www.kaggle.com/c/two-sigma-financial-modeling) competition and comprises only is marginal subset of the original set.
 
+<hr>
 Read data
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 twoSig <- read.csv("https://raw.githubusercontent.com/minorsmart/finance/master/twosigma.csv")
 ```
 
+<hr>
 Check structure and quality.
 ```{r}
 str(twoSig)
@@ -24,7 +27,11 @@ ggplot(NAtwoSigDF,aes(x=Variable,y=NAs,fill=rainbow(dim(NAtwoSigDF)[1]))) +
   theme(axis.text.x=element_text(angle = -90, hjust = 0)) +
   theme(legend.position="none")
 ```
-Conclusion: no missing data. What are we looking at?
+
+Conclusion: no missing data.
+<hr>
+
+What are we looking at?
 
 
 ```{r}
@@ -38,4 +45,6 @@ m <- leaflet(width = 900) %>%
 m
 ```
 
-
+<hr>
+### Question
+*Change the popup text in such a way that is shows the address.*
