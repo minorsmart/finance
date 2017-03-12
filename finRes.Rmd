@@ -16,11 +16,11 @@ t <- 0
 sales <- 1000000
 varcosts <- sales * 0.7
 fixcosts <- 50000
-bresult <- sales - varcosts - fixcosts
-taxes <- bresult * 0.25
-nresult <- bresult - taxes
+gresult <- sales - varcosts - fixcosts
+taxes <- gresult * 0.25
+nresult <- gresult - taxes
 
-finres <- data.frame(t, sales, varcosts, fixcosts, bresult, taxes, nresult)
+finres <- data.frame(t, sales, varcosts, fixcosts, gresult, taxes, nresult)
 finres
 ```
 
@@ -60,9 +60,9 @@ finres <- data.frame(t, sales, fixcosts)
 library(dplyr)
 finres <- mutate(finres,
                  varcosts = sales * 0.7,
-                 bresult = sales - varcosts - fixcosts,
-                 taxes = bresult * 0.25,
-                 nresult = bresult - taxes
+                 gresult = sales - varcosts - fixcosts,
+                 taxes = gresult * 0.25,
+                 nresult = gresult - taxes
                  )
 
 # Plot series
@@ -106,9 +106,9 @@ finres.uncertain <- data.frame(t, sales, fixcosts)
 # Calculate dependent series
 finres.uncertain <- mutate(finres.uncertain,
                  varcosts = sales * 0.7,
-                 bresult = sales - varcosts - fixcosts,
-                 taxes = bresult * 0.25,
-                 nresult = bresult - taxes
+                 gresult = sales - varcosts - fixcosts,
+                 taxes = gresult * 0.25,
+                 nresult = gresult - taxes
                  )
 
 # Plot series
