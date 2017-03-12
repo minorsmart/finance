@@ -22,15 +22,18 @@ ggplot(NAtwoSigDF,aes(x=Variable,y=NAs,fill=rainbow(dim(NAtwoSigDF)[1]))) +
   theme(axis.text.x=element_text(angle = -90, hjust = 0)) +
   theme(legend.position="none")
 ```
-Conclusion: no missing data.
+Conclusion: no missing data. What are we looking at?
 
 
 ```{r}
 library(leaflet)
 center <- cbind(twoSig$longitude, twoSig$latitude) %>% colMeans()
 s <- max(twoSig$price)
-m <- leaflet(width = 900) %>% setView(lng = center[1], lat = center[2], zoom = 12)
-m %>% addTiles() %>% addCircleMarkers(twoSig$longitude, twoSig$latitude, radius = 30*sqrt(twoSig$price/s), color = "royalblue")
+m <- leaflet(width = 900) %>%
+  setView(lng = center[1], lat = center[2], zoom = 12) %>%
+  addTiles() %>%
+  addCircleMarkers(twoSig$longitude, twoSig$latitude, radius = 30*sqrt(twoSig$price/s), color = "royalblue", popup = twoSig$description)
+m
 ```
 
 
