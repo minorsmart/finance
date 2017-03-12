@@ -4,7 +4,7 @@ output: html_notebook
 ---
 
 <hr>
-Read in data stored in an online spreadsheet (Google)
+Read data stored in an online spreadsheet (Google)
 ```{r}
 library(gsheet)
 
