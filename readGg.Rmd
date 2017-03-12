@@ -5,7 +5,7 @@ output: html_notebook
 
 <hr>
 Read data stored in an online spreadsheet (Google)
-```{r}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(gsheet)
 
 personaDF <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1oInZyzyVOcQCHEV1alHSb_sRXFw1xD_nch1w3nGr1TE")
