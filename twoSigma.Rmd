@@ -1,0 +1,63 @@
+---
+title: "Two Sigma"
+output: html_notebook
+---
+
+Read data
+```{r}
+# Load packages and data
+packages <- c("jsonlite", "dplyr", "purrr")
+purrr::walk(packages, library, character.only = TRUE, warn.conflicts = FALSE)
+
+train <- fromJSON(txt = "train.json", simplifyVector = TRUE)
+vars <- setdiff(names(train), c("photos", "features"))
+train <- map_at(train, vars, unlist) %>% tibble::as_tibble(.)
+
+test <- fromJSON(txt = "test.json", simplifyVector = TRUE)
+vars <- setdiff(names(test), c("photos", "features"))
+test <- map_at(test, vars, unlist) %>% tibble::as_tibble(.)
+```
+
+Check structure and quality.
+```{r}
+#str(train)
+# Missing values
+naTrain <- as.numeric(sapply(train, function(x) 100*sum(!is.na(x))/dim(train)[1]))
+naTrainDF <- data.frame(Variable = colnames(train), NAs = naTrain, stringsAsFactors = FALSE)
+
+library(ggplot2)
+ggplot(naTrainDF,aes(x=Variable,y=NAs,fill=rainbow(dim(naTrainDF)[1]))) +
+  geom_col() +
+  scale_y_continuous(limits = c(0, 100)) +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0)) +
+  theme(legend.position="none")
+```
+Conclusion: no missing data.
+
+Read test data and check quality.
+```{r}
+#str(test)
+#summary(test)
+# Missing values
+naTest <- sapply(test, function(x) 100*sum(!is.na(x))/dim(test)[1])
+naTestDF <- data.frame(Variable = colnames(test), NAs = naTest, stringsAsFactors = FALSE)
+
+library(ggplot2)
+ggplot(naTestDF, aes(x=Variable, y=NAs, fill=rainbow(dim(naTestDF)[1]))) +
+  geom_col() +
+  scale_y_continuous(limits = c(0, 100)) +
+  theme(axis.text.x=element_text(angle = -90, hjust = 0)) +
+  theme(legend.position="none")
+```
+Conclusion: no missing data either.
+
+```{r}
+library(leaflet)
+center <- cbind(train$longitude, train$latitude) %>% colMeans()
+r <- sample(1:dim(train)[1], 1000)
+s <- max(train$price[r])
+m <- leaflet(width = 900) %>% setView(lng = center[1], lat = center[2], zoom = 12)
+m %>% addTiles(urlTemplate = "http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}") %>% addCircleMarkers(train$longitude[r], train$latitude[r], radius = 30*sqrt(train$price[r]/s), color = "royalblue")
+```
+
+
