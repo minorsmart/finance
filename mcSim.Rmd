@@ -13,10 +13,10 @@ NumbSims <- 2e6
 <hr>
 2. Define the variables and their distributions
 ```{r}
-unifpop=runif(NumbSims, min=20, max=30)
-poispop=rpois(NumbSims, lambda = 35)
-normpop=rnorm(NumbSims, 15, 4)
-tailoredpop=sample(c(10,10,10,30,30,30,30,30,40), NumbSims, replace = TRUE)
+unifpop = runif(NumbSims, min=20, max=30)
+poispop = rpois(NumbSims, lambda = 35)
+normpop = rnorm(NumbSims, 15, 4)
+tailoredpop = sample(c(10,10,10,30,30,30,30,30,40), NumbSims, replace = TRUE)
 ```
 
 <hr>
