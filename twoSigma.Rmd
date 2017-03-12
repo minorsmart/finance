@@ -3,6 +3,8 @@ title: "Two Sigma"
 output: html_notebook
 ---
 
+#### This data is taken from the [Two Sigma Kaggle](https://www.kaggle.com/c/two-sigma-financial-modeling) competition and comprises only is marginal subset of the original set.
+
 Read data
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 twoSig <- read.csv("https://raw.githubusercontent.com/minorsmart/finance/master/twosigma.csv")
