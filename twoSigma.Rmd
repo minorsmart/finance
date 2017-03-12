@@ -4,7 +4,7 @@ output: html_notebook
 ---
 
 <hr>
-#### This data is taken from the [Two Sigma Kaggle](https://www.kaggle.com/c/two-sigma-financial-modeling) competition and comprises only is marginal subset of the original set.
+#### This data is taken from the [Two Sigma Kaggle](https://www.kaggle.com/c/two-sigma-financial-modeling) competition and comprises only a marginal subset of the original set.
 
 <hr>
 Read data
