@@ -1,0 +1,19 @@
+---
+title: "Read Google Spreadsheet"
+output: html_notebook
+---
+
+<hr>
+Read in data stored in an online spreadsheet (Google)
+```{r}
+library(gsheet)
+
+personaDF <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1oInZyzyVOcQCHEV1alHSb_sRXFw1xD_nch1w3nGr1TE")
+```
+
+
+| Picture and name           | Details              | Goal                 |
+| -------------------------- |:---------------------| :--------------------|
+| ![](`r personaDF[[1,3]]`)  | `r personaDF[[1,4]]` | `r personaDF[[1,5]]` |
+| `r personaDF[[1,2]]`       |                      |                      |
+|                            |                      |                      |
