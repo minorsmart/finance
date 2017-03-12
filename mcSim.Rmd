@@ -1,0 +1,39 @@
+---
+title: "Monte Carlo Simulation"
+output: html_notebook
+---
+
+<hr>
+1. Set the number of simulations.
+
+```{r}
+NumbSims <- 2e6
+```
+
+<hr>
+2. Define the variables and their distributions
+```{r}
+unifpop=runif(NumbSims, min=20, max=30)
+poispop=rpois(NumbSims, lambda = 35)
+normpop=rnorm(NumbSims, 15, 4)
+tailoredpop=sample(c(10,10,10,30,30,30,30,30,40), NumbSims, replace = TRUE)
+```
+
+<hr>
+3. Define the model
+```{r}
+combined = unifpop + poispop + normpop
+```
+
+<hr>
+4. Explore the results
+```{r}
+simDF = data.frame(unifpop, poispop, normpop, tailoredpop, combined)
+
+library(ggplot2)
+
+plt= ggplot(data.frame(data=c(combined, unifpop, poispop, normpop), labels=rep(c("combined", "unifpop", "poispop", "normpop"), rep(NumbSims,4))), aes(x=data)) +
+  stat_bin(aes(fill=labels), position="identity", binwidth=0.25, alpha=0.5) +
+  theme_bw()
+plt
+```
