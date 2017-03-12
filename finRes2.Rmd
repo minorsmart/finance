@@ -69,7 +69,6 @@ library(ggplot2)
 ggplot(finres, aes(x = t, y = nresult)) +
   geom_col(fill = rainbow(max(t)+1)) +
   theme(legend.position="none")
-  
 ```
 
 <hr>
