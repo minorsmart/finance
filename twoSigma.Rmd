@@ -4,7 +4,7 @@ output: html_notebook
 ---
 
 Read data
-```{r}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 twoSig <- read.csv("https://raw.githubusercontent.com/minorsmart/finance/master/twosigma.csv")
 ```
 
