@@ -28,8 +28,6 @@ combined = unifpop + poispop + normpop
 <hr>
 4. Explore the results
 ```{r}
-simDF = data.frame(unifpop, poispop, normpop, tailoredpop, combined)
-
 library(ggplot2)
 
 plt= ggplot(data.frame(data=c(combined, unifpop, poispop, normpop), labels=rep(c("combined", "unifpop", "poispop", "normpop"), rep(NumbSims,4))), aes(x=data)) +
