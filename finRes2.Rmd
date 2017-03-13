@@ -135,8 +135,8 @@ finres.uncertain <- mutate(finres.uncertain,
 
 finres.uncertain
 
-investment <- 3000000
-netpresval <- -investment + sum(finres.uncertain$nresult.pres)
+investment <- 4000000
+netpresval <- -investment + sum(finres.uncertain$nresult.pres[-1])
 ```
 
 The resulting Net Present Value equals: **`r round(netpresval)`**
