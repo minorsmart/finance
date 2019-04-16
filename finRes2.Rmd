@@ -116,6 +116,57 @@ ggplot(finres.uncertain, aes(x = t, y = nresult)) +
   theme(legend.position="none")
 ```
 
+3. Different path projections with risky growth rates
+
+```{r}
+# Define starting values
+finres.uncertain <- data.frame(NULL, NULL, NULL)
+
+
+# Calculate a growing independent series and combine them in data frame with uncertainty
+stdevg <- 0.20
+stdevi <- 0.005
+n <- 20
+
+for (r in c(1:100)) {
+  finres.uncertain
+  t <- 0
+  sales <- 1000000
+  fixcosts <- 50000
+  for (s in c(1:10)) {
+  t <- c(t, s)
+  sales <- c(sales,
+             growthcalc(sales[s],
+                        rnorm(1, mean = growth, sd = stdevg)
+                        )
+             )
+  fixcosts <- c(fixcosts,
+                growthcalc(fixcosts[s],
+                           rnorm(1, mean = inflation, sd = stdevi)
+                           )
+                )
+  
+}
+
+finres.uncertain <- rbind(finres.uncertain, data.frame(t, sales, fixcosts, simulation = rep(r, 11)))
+t <- 0 
+}
+
+# Calculate dependent series
+finres.uncertain <- mutate(finres.uncertain,
+                 varcosts = sales * 0.7,
+                 gresult = sales - varcosts - fixcosts,
+                 taxes = gresult * 0.25,
+                 nresult = gresult - taxes
+                 )
+
+# Plot series
+ggplot() +
+  geom_line(data = finres.uncertain, aes(x = t, y = nresult, group = simulation), color = "skyblue") +
+  geom_line(data = finres, aes(x = t, y = nresult), color = "red") +
+  theme(legend.position="none")
+```
+
 <hr>
 4. Net present value calculations
 
