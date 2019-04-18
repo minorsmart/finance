@@ -116,7 +116,7 @@ ggplot(finres.uncertain, aes(x = t, y = nresult)) +
   theme(legend.position="none")
 ```
 
-3. Different path projections with risky growth rates
+4. Different path projections with risky growth rates
 
 ```{r}
 # Define starting values
@@ -172,7 +172,7 @@ sd(finres.uncertain1.flr$nresult)
 ```
 
 <hr>
-4. Net present value calculations
+5. Net present value calculations
 
 ```{r}
 # Function for calculating present values
@@ -197,7 +197,7 @@ netpresval <- -investment + sum(finres.uncertain$nresult.pres[-1])
 The resulting Net Present Value equals: **`r round(netpresval)`**
 
 <hr>
-5. A 10 year projection with a set of growth rates
+6. A 10 year projection with a set of growth rates
 
 ```{r, message=FALSE, warning=FALSE}
 # Define starting values
