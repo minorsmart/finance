@@ -1,5 +1,6 @@
 ---
 title: "Finance with R"
+author: "by Witek ten Hove"
 output: html_notebook
 ---
 
