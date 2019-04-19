@@ -150,7 +150,6 @@ for (r in c(1:100)) {
   }
 
 finres.uncertain1 <- rbind(finres.uncertain1, data.frame(t, sales, fixcosts, simulation = rep(r, 11)))
-t <- 0 
 }
 
 # Calculate dependent series
