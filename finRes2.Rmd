@@ -1,8 +1,9 @@
 ---
-title: "Finance with R"
+title: "Financial modeling in R"
 author: "by Witek ten Hove"
 output: html_notebook
 ---
+
 
 <hr>
 1. A one year financial model: *sales - variable costs - fixed costs - taxes = net result*
