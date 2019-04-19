@@ -4,7 +4,7 @@ author: "by Witek ten Hove"
 output: html_notebook
 ---
 
-
+In this notebook you'll find some examples on how to add risk to your financial model using simple Monte Carlo techniques.
 <hr>
 1. A one year financial model: *sales - variable costs - fixed costs - taxes = net result*
 
@@ -168,7 +168,7 @@ ggplot() +
   theme(legend.position="none")
 
 finres.uncertain1.flr <- filter(finres.uncertain1, t == 10)
-hist(finres.uncertain1.flr$nresult)
+hist(finres.uncertain1.flr$nresult, xlab = "net result", col = "salmon")
 mean(finres.uncertain1.flr$nresult)
 sd(finres.uncertain1.flr$nresult)
 ```
